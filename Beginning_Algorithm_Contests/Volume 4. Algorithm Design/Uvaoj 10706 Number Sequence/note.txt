@@ -1,0 +1,9 @@
+坑爹，又犯了N多错误···
+
+第一，scanf("%lld",&k)，当long long k时！
+
+否则用lower_bound的时候会出错！
+
+其次，string s = ""+num;是不对的！不是Java···
+
+用sprintf···

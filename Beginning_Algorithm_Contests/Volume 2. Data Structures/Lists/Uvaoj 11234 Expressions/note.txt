@@ -1,0 +1,43 @@
+这题真不容易···
+
+想了半天，终于有个靠谱的思路。
+
+把这个表达式看做一棵树，
+所求的答案竟然是从下到上的层次遍历···
+（不保证正确，感觉是对的···）
+这个想法完全正确！！！我真是太厉害了···
+
+但是我现在不太会层次遍历的写法···
+
+哈哈哈，借助树成功把这道题解决，我真是太聪明啦！！
+
+果然自己好好想想还是能做出来这些题的！！
+
+层次遍历我也想到了一个好方法，遍历的时候按level存到一个vector里面就可以啦！
+
+哈哈，搜了一下，还是我的方法实现起来简单啊！
+
+正统的层次遍历的方法：
+
+我们可以设置两个队列，想象一下队列的特点，就是先进先出，首先把第0层保存在一个队列中，然后按节点访问，
+并把已经访问节点的左右孩子节点放在第二个队列中，当第一个队列中的所有节点都访问完成之后，交换两个节点。
+这样重复下去，直到所有层的节点都被访问，这样做的代价就是空间复杂度有点高。
+（倒着遍历用栈）
+
+void print_by_level_2(Tree T) {  
+    deque<tree_node_t*> q_first, q_second;  
+    q_first.push_back(T);  
+    while(!q_first.empty()) {  
+        while (!q_first.empty()) {  
+            tree_node_t *temp = q_first.front();  
+            q_first.pop_front();  
+            cout << temp->data << " ";  
+            if (temp->lchild)  
+                q_second.push_back(temp->lchild);  
+            if (temp->rchild)  
+                q_second.push_back(temp->rchild);  
+        }  
+        cout << endl;  
+        q_first.swap(q_second);  
+    }  
+}  

@@ -1,0 +1,7 @@
+挺巧妙的。
+
+把LCS转为LIS来求！
+
+因为distinct这个条件，复杂度变为nlogn.
+
+naive的n^2算法应该过不了。

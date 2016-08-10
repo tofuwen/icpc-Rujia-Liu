@@ -1,0 +1,74 @@
+数据大。
+估计用long long也hold不住。
+
+所以用double就搞定啦！
+
+不过感觉用double就像是作弊。
+一点美感都没有···
+
+P.S.
+求组合数也可以用递归。
+C(n,k) = C(n-1,k-1)+C(n-1,k)
+
+P.S.S
+还有另外一种dp！
+Solution 1: Compute using the formula。
+Solution 2: Use Pascal’s triangle
+Can use either if both n and k are small
+Use Solution 1 carefully if n is big, but k or n - k is small
+
+下面是另外一个思路。
+我也想到了，毕竟题目提示了最后答案不超过long long。
+但是这种方法比用double瞬秒差不少···
+
+
+题意：一个数学上的排列组合问题，题目的意思也很明了，输入n和m，假设是n个球，编号为1.2.3.。。。。。。。n，从其中拿出m个球，求解有多少种拿法，即求c（n，m）。至于式子在上面也有。但问题也很明显，根据我们做数学题时的方法，算出各自的阶乘，数据太大，用int，long等都无法算出。为此我一直纠结着。然后我想到了递归，是的，递归很简单，代码很短，即根据c（n，m）=c（n，m-1）+c（n-1，m-1），而且当m==n和m==0时都有c（n，m）=1，运行结果也对了，我乐呵呵的去提交，却总是超时。。。也是，这个数据用这个算法，不超时才怪，我看到一些已经ac的都只花了一点点时间，我起初想着去优化这个递归，但做了无用功。。。这个题是我在比赛的最后半个小时，转换方法写出来的。哎，之前脑袋短路，没办法。嗯，我想到，既然最后结果是在long的范围内的，那么我在计算答案时，在计算分子时，每要乘以一个数，我都在分母里面找它的最大公约数，直到分母里已经没有能整除这个数了（除了1）。这样算下来，终于，用了乘法也没超出范围，时间是20ms。。。
+
+#include<iostream>
+#include<cmath>
+using namespace std;
+int gcd(int a,int b)   //计算最大公约数
+{
+	return (!b)?a:gcd(b,a%b);
+}
+int main()
+{
+	int m,n,a[100],top,low;    
+	//这里top和low是用来记录分子分母各自阶乘的终点和起点,即这里c(n,m)=(low*(low+1)*(low+2)....*n)/top!
+	long c;
+	while(cin>>n>>m && (n||m))
+	{
+		int i,j,k,x;
+		c=1;
+		if(m>n-m+1)    //我们知道，c(n,m)=c(n,n-m)，这里使得分子和分母没有同样的因子
+		{
+			low=m+1;
+			top=n-m;
+		}
+		else
+		{
+			low=n-m+1;
+			top=m;
+		}
+		//主要就是这里,每次要乘以一个分子,都在每个分母里找公约数,然后约去,化简.具体思想参见代码
+		for(i=1;i<=top;i++)
+			a[i]=i;
+		for(i=low;i<=n;i++)
+		{
+			k=i;
+			for(j=2;j<=top;j++)
+			{
+				x=gcd(k,a[j]);
+				while(a[j]!=1 && x!=1)
+				{
+					k/=x;
+					a[j]/=x;
+					x=gcd(k,a[j]);
+				}
+			}
+			c*=k;
+		}
+		cout<<n<<" things taken "<<m<<" at a time is "<<c<<" exactly."<<endl;
+	}
+	return 0;
+}

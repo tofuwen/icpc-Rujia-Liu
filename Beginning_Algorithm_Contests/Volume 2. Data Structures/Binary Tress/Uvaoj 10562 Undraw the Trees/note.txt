@@ -1,0 +1,8 @@
+第一版的code bug好多···
+
+最阴险的一点是有可能超了，把'\0'算作正常字符了···
+
+改成这样okay了··
+for(int i=from;i<min(to, (int)strlen(data[line]));i++)
+
+如果没有第二组数据，我估计死也想不出来bug在哪儿···

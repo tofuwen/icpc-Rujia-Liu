@@ -1,0 +1,84 @@
+我靠，题目看错了···查了半天···
+这题意确实有些难以理解···
+是先把牌发好了，再操作···
+而不是边发牌，边操作···
+
+几乎相当于一次成功了，我还挺吃惊的··
+我以为这题应该挺麻烦的，其实还好。
+
+trick就是不要想一次把操作都做好！
+只要进行了一次操作，就从头搜索一遍下一个操作！
+
+
+P.S. STL的vector竟然还可以这么用···
+
+
+vector <stack < string> > piles;  
+ stack<string> tmp;  
+        tmp.push(s);  
+        piles.push_back(tmp); 
+
+
+虽说这个代码超时，不过可读性好！
+#include <cstdio>  
+#include <cstdlib>  
+#include <cstring>  
+#include <cmath>  
+#include <iostream>  
+#include <algorithm>  
+#include <map>  
+#include <vector>  
+#include <set>  
+#include <string>  
+#include <stack>  
+using namespace std;  
+#define N 52  
+  
+int Match(const string &s1, const string &s2)  
+{  
+    return s1[0]==s2[0]||s1[1]==s2[1];  
+}  
+int main()  
+{  
+    string s;  
+    vector <stack < string> > piles;  
+    while(cin>>s && s!="#")  
+    {  
+        stack<string> tmp;  
+        tmp.push(s);  
+        piles.push_back(tmp);  
+        if(piles.size()==52)  
+        {  
+            int i;  
+            while(1)  
+            {  
+                for(i = 0; i != piles.size(); i++)  
+                {  
+                    if(i>=3&&Match(piles[i].top(), piles[i-3].top()))  
+                    {  
+                        piles[i-3].push(piles[i].top());  
+                        piles[i].pop();  
+                        break;  
+                    }  
+                    if(i>=1&&Match(piles[i].top(), piles[i-1].top()))  
+                    {  
+                        piles[i-1].push(piles[i].top());  
+                        piles[i].pop();  
+                        break;  
+                    }  
+                }  
+                if(i==piles.size())  
+                    break;  
+                if(piles[i].empty())  
+                    piles.erase(piles.begin()+i);  
+            }  
+            cout<<piles.size()<<(piles.size() == 1 ? " pile remaining:" : " piles remaining:");  
+            for(i = 0; i < piles.size(); i++)  
+                cout<<' '<<piles[i].size();  
+            cout<<endl;  
+            piles.clear();  
+        }  
+  
+    }  
+    return 0;  
+}  

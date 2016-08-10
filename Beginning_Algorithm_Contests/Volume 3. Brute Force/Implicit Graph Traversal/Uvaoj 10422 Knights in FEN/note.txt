@@ -1,0 +1,8 @@
+又是关于long long 的runtime error！！
+
+老是错！！
+
+一个是“%lld”！！
+
+另给别的变量赋值也是long long x = va,
+而不是int x = va！！

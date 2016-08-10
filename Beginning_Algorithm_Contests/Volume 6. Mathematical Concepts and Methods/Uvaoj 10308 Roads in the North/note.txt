@@ -1,0 +1,118 @@
+这题也没什么好思路啊···
+
+最简单的O(n^2)算法把所有情况算一遍···
+时间和空间都是O(N^2),N有10^4，估计hold不住···
+
+稍微化简一下只需考虑度为1的点才有可能是最长路的点。
+
+但是极端情况下，明显是一个复杂度···
+
+想不到更好的算法了···（这明明是一个图论问题，为何属于lrj的数学类别里···是不是我没有想到优秀算法···）
+
+哈哈，这个算法真的可以呢！
+
+1Y了！！
+
+不过这应该不是一个最好的算法，这是一个树！！（其实我意识到了，不过没有深入想···）
+
+变为了求树的直径。dfs一次就可以，O(E)
+
+
+现有结论，从任意一点u出发搜到的最远的点一定是s、t中的一点，然后在从这个最远点开始搜，就可以搜到另一个最长路的端点，
+即用两遍广搜就可以找出树的最长路
+
+证明：
+
+1    设u为s-t路径上的一点，结论显然成立，否则设搜到的最远点为T则
+
+dis(u,T) >dis(u,s)     且  dis(u,T)>dis(u,t)   则最长路不是s-t了，与假设矛盾
+
+2   设u不为s-t路径上的点
+
+    首先明确，假如u走到了s-t路径上的一点，那么接下来的路径肯定都在s-t上了，而且终点为s或t，在1中已经证明过了
+
+    所以现在又有两种情况了：
+
+    1：u走到了s-t路径上的某点，假设为X，最后肯定走到某个端点，假设是t ，则路径总长度为dis(u,X)+dis(X,t)
+
+    2：u走到最远点的路径u-T与s-t无交点，则必有一条路，连接了u-T和s-t。由此可构造出比s-t更长的路。矛盾！
+
+还有一种思路非常精彩：由于原图是一棵树，这样我们只要随便指定一个树根就可以画成树的形式，
+那么所有路径都可以看成以父节点为中转点的“儿子甲+儿子乙”的形式（当然只有一个儿子的处理方式也是一样的），
+同时我们用dfs遍历树的时候父节点顺便向上返回一个最大的儿子即可。
+
+对于这个算法我一开始的疑问是：“只有一颗子树时，那个边可能会重复计算。”
+不过当看到实现时，豁然开朗！精彩！！把这种情况排除了···
+
+#include<stdio.h>
+#include<string.h>
+#define MAXD 10010
+#define MAXM 20010
+char b[100];
+int start, e, first[MAXD], next[MAXM], v[MAXM], w[MAXM];
+long long int res;
+void add(int x, int y, int z)
+{
+    w[e] = z;
+    v[e] = y;
+    next[e] = first[x];
+    first[x] = e;
+    e ++;
+}
+long long int dfs(int u, int fa)
+{
+    int i, j;
+    long long int max = 0, ans;
+    for(i = first[u]; i != -1; i = next[i])
+        if(v[i] != fa)
+        {
+            ans = dfs(v[i], u) + w[i];
+            if(ans + max > res)
+                res = ans + max;
+            if(ans > max)
+                max = ans;
+        }
+    return max;
+}
+void solve()
+{
+    int i, j, k;
+    res = 0;
+    dfs(1, -1);
+    printf("%lld\n", res);
+}
+int main()
+{
+    int x, y, z, ok = 1, blank = 1;
+    while(ok)
+    {
+        memset(first, -1, sizeof(first));
+        e = start = 0;
+        for(;;)
+        {
+            if(gets(b) == NULL)
+            {
+                ok = 0;
+                break;
+            }
+            if(b[0] == '\0')
+            {
+                if(blank)
+                {
+                    if(gets(b) == NULL)
+                        ok = 0;
+                }
+                blank = 1;
+                break;
+            }
+            else
+                blank = 0;
+            sscanf(b, "%d%d%d", &x, &y, &z);
+            start = x;
+            add(x, y, z);
+            add(y, x, z);
+        }
+        solve();
+    }
+    return 0;
+}

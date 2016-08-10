@@ -1,0 +1,10 @@
+这道题又查了半天···
+
+运气比较好，竟然自己随便写出了一个错误数据！！
+
+错在了最后的那个条件：If there are more than one best choices, print the smallest
+box number.
+
+要判断最后的值的大小关系，而不是只是a[i].
+
+有点NC···

@@ -1,0 +1,43 @@
+我的思路:
+
+按最后的顺序编号。
+
+找到最小的需要往上的编号。
+
+比他小的编号都需要往上。
+
+找到最小的编号这一步我用的是o(n^2)的sb算法···
+
+其实从上到下遍历一遍，o（n）就应该可以搞定···
+
+简单题，不管那么多啦！
+
+话说用了map来进行编号，还是O(nlogn)。
+
+有个很巧妙的算法根本不需要编号，还很短···
+其实就是两个指针，从后往前遍历一遍···
+
+我没想到主要是直接就想到了那个easy的o（n^2）算法，没想别的···
+
+#include <stdio.h>
+#include <string.h>
+char name[210][100],standard[210][100];
+
+int main()
+{
+    int T,i,j,n;
+    scanf("%d",&T);
+    while(T--)
+    {
+        scanf("%d",&n);  getchar();
+        for(i=1; i<=n; i++)  gets(name[i]);
+        for(i=1; i<=n; i++)  gets(standard[i]);
+
+        for(i=j=n; i>=1; i--) if( !strcmp(name[i] , standard[j]) ) j--;
+        
+        for(; j>=1; j--)  printf("%s\n",standard[j]);
+
+        printf("\n");
+    }
+    return 0;
+}

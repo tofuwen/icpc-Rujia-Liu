@@ -1,0 +1,11 @@
+3
+1
+ab
+1
+aa
+5
+ab
+bc
+ca
+ef
+fe

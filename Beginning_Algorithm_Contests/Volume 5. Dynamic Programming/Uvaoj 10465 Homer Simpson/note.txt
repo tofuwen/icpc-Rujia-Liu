@@ -1,0 +1,70 @@
+这题太SB了···
+
+其实直接枚举就行，数据太小了···
+
+而且时间还特别快，第8名···
+（这题贪心就是个好的算法···）
+
+但我没想出dp的算法···
+
+看了blog，好像跟背包问题有关···
+
+如果有N个Burger，贪心就不行了···
+需要下面的完全背包的思路！
+
+（不过感觉用 记忆化搜索 这题很难写啊，反而用 滚动数组 好写很多！）
+
+这个转移实际上还是 只有前 k-1 种 转移到 用前 k 种
+
+
+
+题目：10465 - Homer Simpson（完全背包）
+
+
+题目大意：有个家伙很喜欢吃burger，现在有两种burger，然后给出吃这两种burger的时间，然后问你在指定的时间内，他能吃最多的burger的个数是多少。如果不能够用完的话，那么剩余时间就拿来喝水，要求喝水的时间尽量短。
+
+
+解题思路：完全背包。状态转移方程：dp【t】在t时间内能吃的最多的burger数目。dp【t + v【i】】 = max （dp【t + v【i】】，dp【t】 + 1）.
+
+
+代码：
+
+#include <cstdio>
+#include <cstring>
+
+const int N = 2;
+const int maxn = 10000;
+
+int dp[maxn];
+int v[N];
+int t;
+
+int Max (const int a, const int b) { return a > b? a: b; }
+
+int main () {
+	
+	while (scanf ("%d%d%d", &v[0], &v[1], &t) != EOF) {
+
+		memset (dp, -1, sizeof (dp));
+		dp[0] = 0;
+		for (int i = 0; i <= N - 1; i++) {
+			for (int j = 0; j <= t - v[i]; j++) {
+			
+				if (dp[j] != -1)
+					dp[j + v[i]] = Max (dp[j + v[i]], dp[j] + 1);			
+			}
+		}
+
+		int i;
+		for (i = t; i >= 0; i--)
+			if (dp[i] != -1)
+				break;
+		printf ("%d", dp[i]);
+
+		if (i != t)
+			printf (" %d\n", t - i);
+		else
+			printf ("\n");
+	}
+	return 0;
+}
