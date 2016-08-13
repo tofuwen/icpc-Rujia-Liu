@@ -1,0 +1,28 @@
+The problem description is wrong!
+
+I will put the right description here:
+
+Let x1, x2,..., xm be real numbers satisfying the following conditions:
+a)
+-$ {\frac{{1}}{{\sqrt{a}}}}$$ \le$xi$ \le$$ \sqrt{{5}}$ ;
+b)
+x1 + x2 +...+ xm = b * $ \sqrt{{a}}$ for some integers a and b (a > 0).
+Determine the maximum value of xp1 + xp2 +...+ xpm for some even positive integer p.
+Input 
+Each input line contains four integers: m, p, a, b ( m$ \le$2000, p$ \le$12, p is even). Input is correct, i.e. for each input numbers there exists x1, x2,..., xm satisfying the given conditions.
+Output 
+For each input line print one number - the maximum value of expression, given above. The answer must be rounded to the nearest integer.
+Sample Input 
+1997 12 3 -318 
+10 2 4 -1
+Sample Output 
+189548 
+6
+
+
+I made 4 mistakes!
+1) Nearest integer! Should be (long long)(ans+0.5)!
+2) Simplify it! Multiply sqrt(a)! Will turn it into integer!
+3) My how_many function is wrong!! I want to do something clever, but wrong!!!
+This is a hard-find bug. When m == b, num_negative might be -1!
+4) p is an integer!! Use p/2.0 instead of p/2!! (But p is even, p/2 is okay)
