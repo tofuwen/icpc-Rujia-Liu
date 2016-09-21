@@ -1,2 +1,3 @@
 # icpc-Rujia-Liu
-Practices for icpc of Rujia Liu's books
+Practices for icpc.
+Problems are from Rujia Liu's books.
