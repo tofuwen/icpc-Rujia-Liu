@@ -1,0 +1,6 @@
+Rujia Liu's code is brilliant!
+Learned how to enumerate subset.
+
+Spent so much time debugging!
+
+Missing special case when s = 1!

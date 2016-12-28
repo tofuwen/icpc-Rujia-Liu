@@ -1,4 +1,4 @@
- // UVa1354 Mobile Computing
+// UVa1354 Mobile Computing
 // Rujia Liu
 #include<cstdio>
 #include<cstring>
@@ -43,6 +43,8 @@ void dfs(int subset) {
 }
 
 int main() {
+  freopen("data.txt", "r", stdin);
+  freopen("answer_out.txt", "w", stdout);
   int T;
   scanf("%d", &T);
   while(T--) {
