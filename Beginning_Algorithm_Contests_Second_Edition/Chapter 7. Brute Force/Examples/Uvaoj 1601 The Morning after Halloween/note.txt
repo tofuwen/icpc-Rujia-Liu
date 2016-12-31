@@ -1,0 +1,10 @@
+Rujia's code is excellent!
+Use << to encode and >> to decode!!
+No need to use array...
+
+Build the "empty cell" graph is a great idea.
+
+My bug bothers me for such a long time!!
+
+For doubly bfs, we should NOT alternate each time.
+Instead, we should alternate after one level!!
